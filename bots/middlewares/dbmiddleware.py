@@ -3,7 +3,6 @@ import asyncpg
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
 from data.dbconnect import Request
-# from psycopg_pool import AsyncConnectionPool
 
 
 class DbConnection(BaseMiddleware):
