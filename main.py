@@ -3,18 +3,17 @@ import asyncpg
 from aiogram import Bot, Dispatcher
 import logging
 from aiogram.filters import CommandStart
-
 from bots.handlers.callback_plan import select_plan
 from bots.handlers.callback_solution import select_solution
+from bots.handlers.callback_start import select_start
 from bots.handlers.callback_task import select_task
 from bots.handlers.callback_tem import select_tem
-# from bots.handlers.callback_solution import select_page_handler
 from bots.handlers.start import get_start
 from bots.middlewares.dbmiddleware import DbConnection
 from bots.utils.commands import set_commands
 from data.config import config_settings
-from bots.utils.callbackdata import TaskInfo, SelectTem, SelectSolution, SelectPlan
-from bots.utils.statesSolution import PageState
+from bots.utils.callbackdata import TaskInfo, SelectTem, SelectSolution, SelectStart
+
 
 async def start_bot(bot: Bot):
     await set_commands(bot)
@@ -45,6 +44,7 @@ async def start():
     try:
         dp.update.middleware(DbConnection(pool_connect))
         dp.message.register(get_start, CommandStart())
+        dp.callback_query.register(select_start, SelectStart.filter())
         dp.callback_query.register(select_task, TaskInfo.filter())
         dp.callback_query.register(select_tem, SelectTem.filter())
         dp.callback_query.register(select_solution, SelectSolution.filter())

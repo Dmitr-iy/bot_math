@@ -2,7 +2,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from bots.utils.callbackdata import TaskInfo
 
 
-def get_num_task():
+def get_num_task(task_id):
     builder = InlineKeyboardBuilder()
 
     for task_id in range(1, 21):

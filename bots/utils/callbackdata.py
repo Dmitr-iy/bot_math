@@ -1,6 +1,9 @@
 from aiogram.filters.callback_data import CallbackData
 
 
+class SelectStart(CallbackData, prefix="start"):
+    task_id: int
+
 class TaskInfo(CallbackData, prefix="task"):
     task_id: int
     tem: str
