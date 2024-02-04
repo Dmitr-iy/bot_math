@@ -10,6 +10,7 @@ class TaskInfo(CallbackData, prefix="task"):
 
 class SelectTem(CallbackData, prefix="tem"):
     tem_name: str
+    back: str
     # solution: str
     task_id: int
     # tem: str

@@ -22,4 +22,9 @@ def get_plan(title):
             callback_data=callback_data,
         )
 
+        builder.button(
+            text='Назад',
+            callback_data=f"back",
+        )
+
     return builder.as_markup()

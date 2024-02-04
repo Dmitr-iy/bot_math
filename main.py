@@ -11,6 +11,7 @@ from bots.handlers.callback_tem import select_tem
 from bots.handlers.start import get_start
 from bots.middlewares.dbmiddleware import DbConnection
 from bots.utils.commands import set_commands
+from bots.utils.statesSolution import Form
 from data.config import config_settings
 from bots.utils.callbackdata import TaskInfo, SelectTem, SelectSolution, SelectStart
 
@@ -45,8 +46,8 @@ async def start():
         dp.update.middleware(DbConnection(pool_connect))
         dp.message.register(get_start, CommandStart())
         dp.callback_query.register(select_start, SelectStart.filter())
-        dp.callback_query.register(select_task, TaskInfo.filter())
-        dp.callback_query.register(select_tem, SelectTem.filter())
+        dp.callback_query.register(select_task, TaskInfo.filter(), Form.task_num)
+        dp.callback_query.register(select_tem, SelectTem.filter(), Form.tem)
         dp.callback_query.register(select_solution, SelectSolution.filter())
         dp.callback_query.register(select_plan)
 

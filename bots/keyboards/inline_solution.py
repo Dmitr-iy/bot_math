@@ -1,5 +1,4 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-
 from data.get_bd import execute_query
 
 
@@ -28,6 +27,11 @@ def get_solution(task_id, name_thems):
             text=button_text[0],
             callback_data=callback_data,
         )
+
+    builder.button(
+        text='Назад',
+        callback_data=f"solution:{task_id}:back",
+    )
 
     if task_id in [2, 4, 5, 12, 14, 17, 19]:
         builder.adjust(1, 1, 1, 1, 1)

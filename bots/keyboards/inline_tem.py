@@ -59,10 +59,16 @@ def get_tem_task(task_id):
 
     # Создаем кнопки на основе данных из базы данных
     for button_text in button_texts:
+
         builder.button(
             text=button_text[0],
-            callback_data=SelectTem(task_id=task_id, tem_name=str(button_text[0])),
+            callback_data=SelectTem(task_id=task_id, tem_name=str(button_text[0]), back=str()),
         )
+
+    builder.button(
+        text='Назад',
+        callback_data=SelectTem(task_id=task_id, tem_name=str(), back='back'),
+    )
 
     # Остальной код функции остается без изменений
     if task_id in [1, 6, 7, 16]:
