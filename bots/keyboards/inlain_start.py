@@ -1,10 +1,8 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-
 from bots.utils.callbackdata import SelectStart
 
 
 def get_start_task():
-
     builder = InlineKeyboardBuilder()
 
     builder.button(

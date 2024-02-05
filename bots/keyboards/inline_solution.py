@@ -7,8 +7,13 @@ def get_solution(task_id, name_thems):
 
     query = ""
     params = ()
+    num = [
+        2, 4, 5,
+        9, 12, 14,
+        17, 19
+    ]
 
-    if task_id in [2, 4, 5, 9, 12, 14, 17, 19]:
+    if task_id in num:
         query = "SELECT exercise_title FROM task_exercise WHERE task_id = %s"
         params = (task_id,)
     else:
@@ -33,11 +38,11 @@ def get_solution(task_id, name_thems):
         callback_data=f"solution:{task_id}:back",
     )
 
-    if task_id in [2, 4, 5, 12, 14, 17, 19]:
-        builder.adjust(1, 1, 1, 1, 1)
-    elif task_id == 9:
+    if task_id == 9:
         builder.adjust(1, 2, 2)
     elif task_id == 19:
+        builder.adjust(1, 1, 1, 1, 1)
+    else:
         builder.adjust(1, 1, 1, 1, 1)
 
     return builder.as_markup()

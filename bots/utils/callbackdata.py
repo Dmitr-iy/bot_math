@@ -11,16 +11,20 @@ class TaskInfo(CallbackData, prefix="task"):
 class SelectTem(CallbackData, prefix="tem"):
     tem_name: str
     back: str
-    # solution: str
     task_id: int
-    # tem: str
 
 class SelectSolution(CallbackData, prefix="solution"):
     task_id: int
     title: str
-    # page: int
 
 class SelectPlan(CallbackData, prefix="plan"):
     title: str
-    condition: str
-    # task_id: int
+    back: str
+
+class SelectExercises(CallbackData, prefix="sol"):
+    solution: str
+    back: str
+
+class SelectFinish(CallbackData, prefix="finish"):
+    back: str
+    support: str

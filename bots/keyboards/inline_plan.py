@@ -1,4 +1,5 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from bots.utils.callbackdata import SelectPlan
 from data.get_bd import execute_query
 
 
@@ -12,11 +13,11 @@ def get_plan(title):
     print('', texts)
 
     for text in texts:
-        truncated_text = text[0]
+        truncated_text = str(text[0])
 
-        print(truncated_text, truncated_text[:2])
+        print(truncated_text)
 
-        callback_data = f"{truncated_text}"
+        callback_data = SelectPlan(title=truncated_text, back='back')
         builder.button(
             text=truncated_text,
             callback_data=callback_data,
@@ -24,7 +25,7 @@ def get_plan(title):
 
         builder.button(
             text='Назад',
-            callback_data=f"back",
+            callback_data=SelectPlan(title='back', back='back')
         )
 
     return builder.as_markup()
