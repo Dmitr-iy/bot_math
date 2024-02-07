@@ -17,7 +17,7 @@ def get_exercises(solution, task_id, them):
     for text in texts:
         tex = str(text[0])
         print(tex)
-        callback_data = SelectExercises(solution=tex, them='', task_id=task_id)
+        callback_data = SelectExercises(solution=tex, them=them, task_id=task_id)
         builder.button(
             text=tex,
             callback_data=callback_data,

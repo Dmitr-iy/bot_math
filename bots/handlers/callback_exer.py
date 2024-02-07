@@ -27,7 +27,7 @@ async def select_exercises(call: CallbackQuery, callback_data: SelectExercises):
         print("Solution", tex)
         if tex:
             answer = f'Решение: {tex[0][0]}'
-            await call.message.answer(answer, reply_markup=get_finish())
+            await call.message.answer(answer, reply_markup=get_finish(task_id=task_id, name_them=name_them))
             await call.message.edit_reply_markup(reply_markup=None)
         else:
             await call.message.answer("Для этой задачи нет данных.")

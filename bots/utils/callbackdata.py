@@ -30,4 +30,4 @@ class SelectExercises(CallbackData, prefix="sol"):
 
 class SelectFinish(CallbackData, prefix="finish"):
     back: str
-    support: str
+    task_id: int
