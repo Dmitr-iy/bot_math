@@ -31,7 +31,8 @@ async def select_plan(call: CallbackQuery, callback_data: SelectPlan):
 
         if texts:
             answer = f' {texts[0]}'
-            await call.message.answer(answer, reply_markup=get_exercises(solution=plan_solution))
+            await call.message.answer(answer, reply_markup=get_exercises(solution=plan_solution, task_id=task_id,
+                                                                         them=back))
             await call.message.edit_reply_markup(reply_markup=None)
         else:
             await call.message.answer("Ошибка базы данных, повторите попытку.")
