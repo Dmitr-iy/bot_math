@@ -15,12 +15,12 @@ def get_finish():
     )
 
     builder.button(
-        text='К Заданиям',
+        text='↩ К Заданиям',
         callback_data=SelectFinish(back='back', support='back'),
     )
 
     builder.button(
-        text='support',
+        text='⚙ support 🛠',
         callback_data=SelectFinish(back='support', support='support'),
     )
 

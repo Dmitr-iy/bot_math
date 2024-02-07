@@ -20,7 +20,7 @@ def get_exercises(solution):
         )
 
     builder.button(
-        text='Назад',
+        text='↩ К Заданиям',
         callback_data=SelectExercises(solution='back', back='back'),
     )
     return builder.as_markup()

@@ -20,17 +20,19 @@ def get_tem_task(task_id):
         )
 
     builder.button(
-        text='Назад',
+        text='🔙',
         callback_data=SelectTem(task_id=task_id, tem_name=str(), back='back'),
     )
 
-    if task_id in [1, 6, 7, 16]:
-        builder.adjust(2, 1)
-    elif task_id == 3:
-        builder.adjust(1, 2, 2)
-    elif task_id == 10:
-        builder.adjust(2, 2, 1, 1)
-    elif task_id in [11, 13, 15, 18]:
-        builder.adjust(1, 1)
+    builder.adjust(1, 1, 1, 1, 1)
+
+    # if task_id in [1, 6, 7, 16]:
+    #     builder.adjust(2, 1)
+    # elif task_id == 3:
+    #     builder.adjust(1, 2, 2)
+    # elif task_id == 10:
+    #     builder.adjust(2, 2, 1, 1)
+    # elif task_id in [11, 13, 15, 18]:
+    #     builder.adjust(1, 1)
 
     return builder.as_markup()

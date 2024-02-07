@@ -1,17 +1,17 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from bots.utils.back import number
 from data.get_bd import execute_query
 
 
 def get_solution(task_id, name_thems):
+    print("Task ID:", task_id)
+    print("Name thems:", name_thems)
+
     builder = InlineKeyboardBuilder()
 
     query = ""
     params = ()
-    num = [
-        2, 4, 5,
-        9, 12, 14,
-        17, 19
-    ]
+    num = number
 
     if task_id in num:
         query = "SELECT exercise_title FROM task_exercise WHERE task_id = %s"
@@ -24,7 +24,10 @@ def get_solution(task_id, name_thems):
 
     button_texts = execute_query(query, params)
 
-    print("", button_texts)
+    print("Query:", query)
+    print("Params:", params)
+
+    print("Button texts:", button_texts)
 
     for button_text in button_texts:
         callback_data = f"solution:{task_id}:{button_text[0]}"
@@ -34,7 +37,7 @@ def get_solution(task_id, name_thems):
         )
 
     builder.button(
-        text='Назад',
+        text='🔙',
         callback_data=f"solution:{task_id}:back",
     )
 

@@ -20,6 +20,8 @@ class SelectSolution(CallbackData, prefix="solution"):
 class SelectPlan(CallbackData, prefix="plan"):
     title: str
     back: str
+    task_id: int
+
 
 class SelectExercises(CallbackData, prefix="sol"):
     solution: str

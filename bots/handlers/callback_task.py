@@ -2,19 +2,13 @@ from aiogram.types import CallbackQuery
 from bots.keyboards.inline_solution import get_solution
 from bots.keyboards.inline_tem import get_tem_task
 from bots.utils.callbackdata import TaskInfo
-
+from bots.utils.back import numbers
 
 async def select_task(call: CallbackQuery, callback_data: TaskInfo):
     task_id = callback_data.task_id
     task_tem = callback_data.tem
-    num = [
-        '1', '3', '6',
-        '7', '8', '10',
-        '11', '13', '15',
-        '16', '18'
-    ]
 
-    if task_tem in num:
+    if task_tem in numbers:
         tem_kb = get_tem_task(task_id)
         answer = f'Ты выбрал задание {task_id}, выбери тему:'
         await call.message.answer(answer, reply_markup=tem_kb)
