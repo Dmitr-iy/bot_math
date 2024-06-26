@@ -2,15 +2,7 @@ import asyncio
 import asyncpg
 from aiogram import Bot, Dispatcher
 import logging
-from aiogram.filters import CommandStart
-from bots.handlers.callback_finish import select_finished
-from bots.handlers.callback_plan import select_plan
-from bots.handlers.callback_exer import select_exercises
-from bots.handlers.callback_solution import select_solution
-from bots.handlers.callback_start import select_start
-from bots.handlers.callback_task import select_task
-from bots.handlers.callback_tem import select_tem
-from bots.handlers.start import get_start
+from bots.handlers.handler import router
 from bots.middlewares.dbmiddleware import DbConnection
 from bots.utils.commands import set_commands
 from data.config import config_settings
@@ -41,20 +33,14 @@ async def start():
     pool_connect = await create_pool()
 
     dp = Dispatcher()
+    dp.update.middleware(DbConnection(pool_connect))
     dp.startup.register(start_bot)
     dp.shutdown.register(stop_bot)
 
     try:
-        dp.update.middleware(DbConnection(pool_connect))
-        dp.message.register(get_start, CommandStart())
-        dp.callback_query.register(select_start, SelectStart.filter())
-        dp.callback_query.register(select_task, TaskInfo.filter())
-        dp.callback_query.register(select_tem, SelectTem.filter())
-        dp.callback_query.register(select_solution, SelectSolution.filter())
-        dp.callback_query.register(select_plan, SelectPlan.filter())
-        dp.callback_query.register(select_exercises, SelectExercises.filter())
-        dp.callback_query.register(select_finished, SelectFinish.filter())
+        dp.include_router(router)
 
+        await bot.delete_webhook(drop_pending_updates=True)
         await dp.start_polling(bot)
 
     except Exception as e:
@@ -62,7 +48,6 @@ async def start():
         await bot.send_message(config_settings.admin_id, f"An error occurred during bot polling: {e}")
     finally:
         await bot.session.close()
-
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
