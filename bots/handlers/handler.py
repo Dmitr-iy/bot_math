@@ -81,7 +81,9 @@ async def select_solution(call: CallbackQuery, callback_data: SelectSolution):
             answer = f'выбери задание:'
             await send_back(call, answer, reply_markup=get_num_task(task_id=str(task_id)))
     else:
-        query = "SELECT condition FROM exercise WHERE title = %s"
+        # query = "SELECT condition FROM exercise WHERE title = %s"
+        query = "SELECT `condition` FROM exercise WHERE title = %s"
+        print('QUERY', query)
         params = (title,)
         texts = execute_query(query, params)
 

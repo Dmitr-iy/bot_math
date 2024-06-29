@@ -1,13 +1,11 @@
 import asyncio
-import asyncpg
+import aiomysql
 from aiogram import Bot, Dispatcher
 import logging
 from bots.handlers.handler import router
 from bots.middlewares.dbmiddleware import DbConnection
 from bots.utils.commands import set_commands
 from data.config import config_settings
-from bots.utils.callbackdata import TaskInfo, SelectTem, SelectSolution, SelectStart, SelectPlan, SelectExercises, \
-    SelectFinish
 
 
 async def start_bot(bot: Bot):
@@ -18,10 +16,10 @@ async def stop_bot(bot: Bot):
     await bot.send_message(config_settings.admin_id, "Бот остановлен")
 
 async def create_pool():
-    return await asyncpg.create_pool(
+    return await aiomysql.create_pool(
         user=config_settings.db_user,
         password=config_settings.db_password.get_secret_value(),
-        database=config_settings.db_name,
+        db=config_settings.db_name,
         host=config_settings.db_host,
         port=config_settings.db_port,
     )
@@ -31,6 +29,8 @@ async def start():
     bot = Bot(token=config_settings.bot_token.get_secret_value(), parse_mode="HTML")
 
     pool_connect = await create_pool()
+
+
 
     dp = Dispatcher()
     dp.update.middleware(DbConnection(pool_connect))
@@ -47,6 +47,8 @@ async def start():
         logging.error(f"An error occurred during bot polling: {e}")
         await bot.send_message(config_settings.admin_id, f"An error occurred during bot polling: {e}")
     finally:
+        await asyncio.get_event_loop().shutdown_asyncgens()
+        await pool_connect.close()
         await bot.session.close()
 
 if __name__ == "__main__":

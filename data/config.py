@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     db_password: SecretStr
     db_name: str
     db_host: str
-    db_port: str
+    db_port: int
     admin_id: int
 
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
